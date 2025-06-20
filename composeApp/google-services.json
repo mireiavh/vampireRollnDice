@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "887900359782",
+    "project_id": "vampirefirebase",
+    "storage_bucket": "vampirefirebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887900359782:android:4ff3b4f9f8dade2e3df1a7",
+        "android_client_info": {
+          "package_name": "org.mireiavh.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOoNp5YhmCospKOeHh3RJEvDnlZTEfghM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
