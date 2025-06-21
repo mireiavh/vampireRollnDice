@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">VampireRollnDice</string>
+
+    <!-- Texto de la aplicacion -->
+    <string name="help_inital_text">Obten ayuda o informacion adicional</string>
+    <string name="title_initial_text">¡Crea personajes, manéjalos y realiza tiradas de dados!</string>
+    <string name="button_inital_login">Continua con otra cuenta</string>
+    <string name="button_inital_google_login">Continua con Google</string>
+    <string name="button_inital_login_free">Regístrate gratis</string>
+    <string name="politics_text">Al continuar, indica que has aceptado los Terminos de uso y tenemos constancia que has leido nuestra Politica de pivacidad</string>
+
+    <string name="back_text">Volver</string>
+    <string name="login_text">¡Registra tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
+    <string name="email_text">Correo electronico</string>
+    <string name="password_text">Contraseña</string>
+    <string name="register_text">Registrarse</string>
+    <string name="register_without_psw_text">Regístrate sin contraseña</string>
 </resources>
