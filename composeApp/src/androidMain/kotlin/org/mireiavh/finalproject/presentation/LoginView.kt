@@ -8,14 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,23 +28,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.mireiavh.finalproject.R
-import org.mireiavh.finalproject.utils.CustomButton
+import org.mireiavh.finalproject.utils.CustomAdvertisingText
+import org.mireiavh.finalproject.utils.CustomDetailButton
+import org.mireiavh.finalproject.utils.CustomDivider
+import org.mireiavh.finalproject.utils.CustomIcon
 import org.mireiavh.finalproject.utils.CustomImage
+import org.mireiavh.finalproject.utils.CustomInput
+import org.mireiavh.finalproject.utils.CustomText
 import org.mireiavh.finalproject.utils.CustomTitleText
 
-@Preview
 @Composable
-fun LoginView() {
+fun LoginView(navigateToInitial:() -> Unit) {
     var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        CustomImage(painterResource(id = R.drawable.initial_cover_vampire), ContentScale.Crop, Modifier.fillMaxSize())
+        CustomImage(painterResource(id = R.drawable.initial_cover_vampire2), ContentScale.Crop, Modifier.fillMaxSize())
         Box(modifier = Modifier.fillMaxSize()
             .background(Brush.verticalGradient(colors = listOf(Color.Transparent, Color(0xFF800000).copy(alpha = 0.7f)), startY = 300f, endY = 1800f))
         )
@@ -61,41 +62,45 @@ fun LoginView() {
                 modifier = Modifier.padding(horizontal = 32.dp),
                 horizontalArrangement = Arrangement.Start,
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_back_24),
-                    contentDescription = "",
-                    tint = Color.White,
-                    modifier = Modifier.size(20.dp)
-                )
-                Text(
-                    text = stringResource(id = R.string.back_text),
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
+                CustomIcon(painterResource(id = R.drawable.ic_arrow_back_24))
+                CustomText(stringResource(id = R.string.back_text), null, Modifier.padding(start = 4.dp).clickable{ navigateToInitial() }, FontWeight.Bold)
             }
             Spacer(modifier = Modifier.height(20.dp))
+
             CustomTitleText(stringResource(id = R.string.login_text), TextAlign.Center)
+
             Spacer(modifier = Modifier.height(20.dp))
-            CustomTitleText(stringResource(id = R.string.email_text), TextAlign.Left)
+
+            CustomText(stringResource(id = R.string.email_text), TextAlign.Left, Modifier.padding(horizontal = 40.dp), null)
+
             Spacer(modifier = Modifier.height(10.dp))
-            TextField(value = email, onValueChange = { email = it }, modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp).height(30.dp), shape = RoundedCornerShape(4.dp))
+
+            CustomInput(value = email, onValueChange = { email = it })
+
             Spacer(modifier = Modifier.height(20.dp))
-            CustomTitleText(stringResource(id = R.string.password_text), TextAlign.Left)
+
+            CustomText(stringResource(id = R.string.password_text), TextAlign.Left, Modifier.padding(horizontal = 40.dp),null)
+
             Spacer(modifier = Modifier.height(10.dp))
-            TextField(value = email, onValueChange = { email = it }, modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp).height(30.dp), shape = RoundedCornerShape(4.dp))
-            Spacer(modifier = Modifier.height(25.dp))
-            CustomButton(modifier = Modifier.clickable {  }, null, null, stringResource(id = R.string.register_text), Color(0xFF4D0000))
+
+            CustomInput(value = password, onValueChange = { password = it })
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            CustomDetailButton(onClick = { }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
+            /*
             Row (
                 modifier = Modifier.padding(horizontal = 32.dp),
                 horizontalArrangement = Arrangement.Center)
             {
-                Text(stringResource(id = R.string.register_without_psw_text), color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.padding(15.dp))
+                CustomText(stringResource(id = R.string.register_without_psw_text), null, modifier = Modifier.padding(15.dp), null)
             }
-            Spacer(modifier = Modifier.weight(.2f))
-            Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).height(1.dp).background(Color(0xFF4D0000)))
-            Text(stringResource(id = R.string.politics_text), fontSize = 12.sp, textAlign = TextAlign.Center, color = Color.White, modifier = Modifier.padding(horizontal = 50.dp, vertical = 20.dp))
+             */
 
+            Spacer(modifier = Modifier.weight(.1f))
+
+            CustomDivider()
+            CustomAdvertisingText(stringResource(id = R.string.politics_text))
         }
 
     }

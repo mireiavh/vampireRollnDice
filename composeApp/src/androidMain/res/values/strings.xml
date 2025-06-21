@@ -10,9 +10,9 @@
     <string name="politics_text">Al continuar, indica que has aceptado los Terminos de uso y tenemos constancia que has leido nuestra Politica de pivacidad</string>
 
     <string name="back_text">Volver</string>
-    <string name="login_text">¡Registra tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
+    <string name="login_text">¡Entra con tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
     <string name="email_text">Correo electronico</string>
     <string name="password_text">Contraseña</string>
-    <string name="register_text">Registrarse</string>
-    <string name="register_without_psw_text">Regístrate sin contraseña</string>
+    <string name="register_text">Continuar</string>
+    <string name="register_without_psw_text">Entrar sin contraseña</string>
 </resources>

@@ -21,7 +21,9 @@ fun NavigationWrapper (navHostController: NavHostController, auth: FirebaseAuth)
             )
         }
         composable("logIn"){
-            LoginView()
+            LoginView(
+                navigateToInitial = { navHostController.navigate("initial") }
+            )
         }
         composable("signUp"){
             SignUpView(auth)
