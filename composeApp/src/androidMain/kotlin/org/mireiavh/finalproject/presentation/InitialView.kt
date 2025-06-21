@@ -37,7 +37,7 @@ fun InitialView (navigateToLogin:() -> Unit, navigateToSignUp: () -> Unit) {
     ) {
         CustomImage(painterResource(id = R.drawable.initial_cover_vampire), ContentScale.Crop, Modifier.fillMaxSize())
         Box(modifier = Modifier.fillMaxSize()
-                .background(Brush.verticalGradient(colors = listOf(Color.Transparent, Color(0xFF800000).copy(alpha = 0.7f)), startY = 300f, endY = 1800f))
+            .background(Brush.verticalGradient(colors = listOf(Color.Transparent, Color(0xFF800000).copy(alpha = 0.7f)), startY = 300f, endY = 1800f))
         )
         Box(modifier = Modifier.width(265.dp).padding(vertical = 16.dp)
             .background(color = Color(0xFF4D0000).copy(alpha = 0.5f)).padding(16.dp)) {
