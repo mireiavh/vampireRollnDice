@@ -22,13 +22,19 @@ fun NavigationWrapper (navHostController: NavHostController, auth: FirebaseAuth)
         }
         composable("logIn"){
             LoginView(
-                navigateToInitial = { navHostController.navigate("initial") }
+                navigateToInitial = { navHostController.navigate("initial") },
+                navigateToHome = { navHostController.navigate("home") },
+                auth
             )
         }
         composable("signUp"){
-            SignUpView(auth)
+            SignUpView(
+                navigateToInitial = { navHostController.navigate("initial") },
+                navigateToHome = { navHostController.navigate("home") },
+                auth
+            )
         }
-        composable("Home"){
+        composable("home"){
             HomeView()
         }
     }

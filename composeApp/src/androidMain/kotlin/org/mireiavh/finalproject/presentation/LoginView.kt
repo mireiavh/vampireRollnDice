@@ -1,5 +1,6 @@
 package org.mireiavh.finalproject.presentation
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.FirebaseAuth
 import org.mireiavh.finalproject.R
 import org.mireiavh.finalproject.utils.CustomAdvertisingText
 import org.mireiavh.finalproject.utils.CustomDetailButton
@@ -40,7 +42,7 @@ import org.mireiavh.finalproject.utils.CustomText
 import org.mireiavh.finalproject.utils.CustomTitleText
 
 @Composable
-fun LoginView(navigateToInitial:() -> Unit) {
+fun LoginView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: FirebaseAuth) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -87,15 +89,16 @@ fun LoginView(navigateToInitial:() -> Unit) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            CustomDetailButton(onClick = { }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
-            /*
-            Row (
-                modifier = Modifier.padding(horizontal = 32.dp),
-                horizontalArrangement = Arrangement.Center)
-            {
-                CustomText(stringResource(id = R.string.register_without_psw_text), null, modifier = Modifier.padding(15.dp), null)
-            }
-             */
+            CustomDetailButton(onClick = {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        Log.i("aris", "LOGIN OK")
+                        navigateToHome()
+                    }else{
+                        Log.i("aris", "LOGIN noooooooo")
+                    }
+                }
+            }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
 
             Spacer(modifier = Modifier.weight(.1f))
 

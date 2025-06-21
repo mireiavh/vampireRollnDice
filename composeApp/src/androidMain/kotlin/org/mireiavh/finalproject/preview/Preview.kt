@@ -15,10 +15,14 @@ fun InitialViewPreview() {
     )
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun LoginViewPreview() {
     LoginView(
-        navigateToInitial = {}
+        navigateToInitial = {},
+        auth =
     )
 }
+
+ */
