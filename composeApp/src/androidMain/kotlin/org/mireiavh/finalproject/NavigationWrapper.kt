@@ -9,34 +9,36 @@ import org.mireiavh.finalproject.presentation.HomeView
 import org.mireiavh.finalproject.presentation.InitialView
 import org.mireiavh.finalproject.presentation.LoginView
 import org.mireiavh.finalproject.presentation.SignUpView
-
 @Composable
-fun NavigationWrapper (navHostController: NavHostController, auth: FirebaseAuth){
-
-    NavHost(navController = navHostController, startDestination = "initial"){
-        composable("initial"){
+fun NavigationWrapper(
+    navHostController: NavHostController,
+    auth: FirebaseAuth,
+    onGoogleLoginClick: () -> Unit
+) {
+    NavHost(navController = navHostController, startDestination = "initial") {
+        composable("initial") {
             InitialView(
-                navigateToLogin = {navHostController.navigate("logIn")},
-                navigateToSignUp = {navHostController.navigate("signUp")}
+                navigateToLogin = { navHostController.navigate("logIn") },
+                navigateToSignUp = { navHostController.navigate("signUp") },
+                onGoogleLoginClick = onGoogleLoginClick
             )
         }
-        composable("logIn"){
+        composable("logIn") {
             LoginView(
                 navigateToInitial = { navHostController.navigate("initial") },
                 navigateToHome = { navHostController.navigate("home") },
-                auth
+                auth = auth
             )
         }
-        composable("signUp"){
+        composable("signUp") {
             SignUpView(
                 navigateToInitial = { navHostController.navigate("initial") },
                 navigateToHome = { navHostController.navigate("home") },
-                auth
+                auth = auth
             )
         }
-        composable("home"){
+        composable("home") {
             HomeView()
         }
     }
-
 }

@@ -11,18 +11,18 @@ import org.mireiavh.finalproject.presentation.LoginView
 fun InitialViewPreview() {
     InitialView(
         navigateToLogin = {},
-        navigateToSignUp = {}
+        navigateToSignUp = {},
+        onGoogleLoginClick = {}
     )
 }
 
-/*
+
 @Preview(showBackground = true)
 @Composable
 fun LoginViewPreview() {
     LoginView(
         navigateToInitial = {},
-        auth =
+        navigateToHome = {},
+        auth = TODO()
     )
 }
-
- */

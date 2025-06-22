@@ -29,6 +29,7 @@ kotlin {
             implementation(libs.firebase.auth)
 
             implementation(libs.androidx.navigation.compose)
+            implementation(libs.google.auth)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

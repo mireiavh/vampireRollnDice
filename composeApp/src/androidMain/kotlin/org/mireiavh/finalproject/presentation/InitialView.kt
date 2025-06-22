@@ -27,7 +27,7 @@ import org.mireiavh.finalproject.utils.CustomInfoItem
 import org.mireiavh.finalproject.utils.CustomTitleText
 
 @Composable
-fun InitialView (navigateToLogin:() -> Unit, navigateToSignUp: () -> Unit) {
+fun InitialView (navigateToLogin:() -> Unit, navigateToSignUp: () -> Unit, onGoogleLoginClick: () -> Unit) {
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -53,7 +53,7 @@ fun InitialView (navigateToLogin:() -> Unit, navigateToSignUp: () -> Unit) {
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            CustomButton(onClick = { }, painterResource(id = R.drawable.logo_google), Color(0xFF4D0000),stringResource(id = R.string.button_inital_google_login), Color.Transparent)
+            CustomButton(onClick = {onGoogleLoginClick()}, painterResource(id = R.drawable.logo_google), Color(0xFF4D0000),stringResource(id = R.string.button_inital_google_login), Color.Transparent)
             CustomDirectionalText(stringResource(id = R.string.button_inital_login_free), navigateToSignUp)
             Spacer(modifier = Modifier.weight(.1f))
 
