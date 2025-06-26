@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         )
+
     }
 
     private val currentUser = mutableStateOf(Firebase.auth.currentUser)
