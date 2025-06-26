@@ -11,11 +11,23 @@
 
     <string name="back_text">Volver</string>
     <string name="login_text">¡Entra con tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
+    <string name="signup_text">¡Regístrate con tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
     <string name="email_text">Correo electronico</string>
     <string name="password_text">Contraseña</string>
     <string name="register_text">Continuar</string>
     <string name="register_without_psw_text">Entrar sin contraseña</string>
 
-    <string name="sign_up_text">¡Registrate con tu cuenta para empezar a jugar Vampiro: La Mascarada!</string>
+    <string name="sign_out_text">Cerrar sesión</string>
+    <string name="user_profile_text">Perfil del usuario</string>
+    <string name="configuration_text">Configuración</string>
+    <string name="change_lenguaje_text">Cambio de idioma</string>
+    <string name="suport_text">Soporte</string>
+    <string name="suport_info_text">Información de soporte</string>
+    <string name="customer_prefs_text">Preferencias de consumidor</string>
+    <string name="privacy_politics_text">Políticas de privacidad</string>
+    <string name="use_terms_text">"Términos y usos"</string>
+    <string name="devs_config_text">"Configuración para desarrolladores"</string>
+    <string name="app_version_text">"Versión de la aplicación"</string>
+    <string name="num_app_version_text">"LTS 1.0.0"</string>
 
 </resources>

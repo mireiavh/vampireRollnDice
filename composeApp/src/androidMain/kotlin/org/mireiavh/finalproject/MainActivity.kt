@@ -65,9 +65,8 @@ class MainActivity : ComponentActivity() {
                 onSignOutClick = {
                     authManager.signOut {
                         currentUser.value = null
-                        navHostController.navigate("auth") {
-                            popUpTo("appContent") { inclusive = true }
-                        }
+                        navHostController.navigate("auth")
+                        Log.i("SIGN_OUT", "SIGN OUT OK")
                     }
                 },
                 authManager = authManager
