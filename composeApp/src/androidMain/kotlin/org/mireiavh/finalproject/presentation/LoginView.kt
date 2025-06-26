@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
+import org.mireiavh.finalproject.AuthManager
 import org.mireiavh.finalproject.R
 import org.mireiavh.finalproject.utils.CustomAdvertisingText
 import org.mireiavh.finalproject.utils.CustomDetailButton
@@ -39,7 +40,7 @@ import org.mireiavh.finalproject.utils.CustomText
 import org.mireiavh.finalproject.utils.CustomTitleText
 
 @Composable
-fun LoginView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: FirebaseAuth) {
+fun LoginView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: AuthManager) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -86,16 +87,20 @@ fun LoginView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: Fir
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            CustomDetailButton(onClick = {
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        Log.i("aris", "LOGIN OK")
-                        navigateToHome()
-                    }else{
-                        Log.i("aris", "LOGIN noooooooo")
-                    }
-                }
-            }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
+            CustomDetailButton(
+                onClick = {
+                    auth.signInWithEmailAndPassword(
+                        email,
+                        password,
+                        onSuccess = {
+                            Log.i("auth", "LOGIN OK")
+                            navigateToHome()
+                        },
+                        onFailure = {
+                            Log.e("auth", "LOGIN FAILED")
+                        }
+                    )
+                }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
 
             Spacer(modifier = Modifier.weight(.1f))
 

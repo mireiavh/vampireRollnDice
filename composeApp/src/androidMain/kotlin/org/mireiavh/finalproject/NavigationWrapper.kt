@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.google.firebase.auth.FirebaseAuth
+import org.mireiavh.finalproject.navigation.menuNavigation
 import org.mireiavh.finalproject.presentation.HomeView
 import org.mireiavh.finalproject.presentation.InitialView
 import org.mireiavh.finalproject.presentation.LoginView
@@ -17,16 +18,12 @@ fun NavigationWrapper(
     isUserLoggedIn: Boolean,
     onGoogleLoginClick: () -> Unit,
     onSignOutClick: () -> Unit,
-    auth : AuthManager
+    authManager: AuthManager
 ) {
-    val startDestination = if (isUserLoggedIn) {
-        Log.i("LOG_IN", "user " + (auth.getCurrentUser()?.email ?: "no user logged in"))
-        "home"
-    } else {
-        "auth"
-    }
+    val startDestination = if (isUserLoggedIn) "appContent" else "auth"
 
     NavHost(navController = navHostController, startDestination = startDestination) {
+
         composable("auth") {
             InitialView(
                 navigateToLogin = { navHostController.navigate("logIn") },
@@ -34,22 +31,36 @@ fun NavigationWrapper(
                 onGoogleLoginClick = onGoogleLoginClick
             )
         }
+
         composable("logIn") {
             LoginView(
                 navigateToInitial = { navHostController.navigate("auth") },
-                navigateToHome = { navHostController.navigate("home") },
-                auth = FirebaseAuth.getInstance()
+                navigateToHome = {
+                    navHostController.navigate("appContent") {
+                        popUpTo("auth") { inclusive = true }
+                    }
+                },
+                auth = authManager
             )
         }
+
         composable("signUp") {
             SignUpView(
                 navigateToInitial = { navHostController.navigate("auth") },
-                navigateToHome = { navHostController.navigate("home") },
-                auth = FirebaseAuth.getInstance()
+                navigateToHome = {
+                    navHostController.navigate("appContent") {
+                        popUpTo("auth") { inclusive = true }
+                    }
+                },
+                auth = authManager
             )
         }
-        composable("home") {
-            HomeView()
+
+        composable("appContent") {
+            menuNavigation(
+                onSignOutClick = onSignOutClick,
+                auth = authManager
+            )
         }
     }
 }

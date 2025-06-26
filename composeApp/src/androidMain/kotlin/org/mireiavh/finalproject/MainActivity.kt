@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.mutableStateOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,20 +30,21 @@ class MainActivity : ComponentActivity() {
             this,
             onSuccess = {
                 runOnUiThread {
-                    if (::navHostController.isInitialized) {
-                        navHostController.navigate("home") {
-                            popUpTo("auth") { inclusive = true }
-                        }
+                    currentUser.value = authManager.getCurrentUser()
+                    navHostController.navigate("appContent") {
+                        popUpTo("auth") { inclusive = true }
                     }
                 }
             },
             onFailure = { e ->
                 runOnUiThread {
-                    println("Google sign in failed: $e")
+                    Log.e("MainActivity", "Google sign in failed", e)
                 }
             }
         )
     }
+
+    private val currentUser = mutableStateOf(Firebase.auth.currentUser)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -53,29 +55,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             navHostController = rememberNavController()
 
-            // Obtenemos usuario actual
-            val currentUser = authManager.getCurrentUser()
-
             NavigationWrapper(
                 navHostController = navHostController,
-                isUserLoggedIn = (currentUser != null),
+                isUserLoggedIn = (currentUser.value != null),
                 onGoogleLoginClick = {
                     val signInIntent = authManager.getSignInIntent()
                     launcher.launch(signInIntent)
-                    Log.i("LOG_IN", "user " + authManager.getCurrentUser())
                 },
                 onSignOutClick = {
                     authManager.signOut {
+                        currentUser.value = null
                         navHostController.navigate("auth") {
-                            popUpTo("home") { inclusive = true }
+                            popUpTo("appContent") { inclusive = true }
                         }
                     }
                 },
-                auth = authManager
+                authManager = authManager
             )
         }
     }
-
 }
 
 

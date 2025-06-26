@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
+import org.mireiavh.finalproject.AuthManager
 import org.mireiavh.finalproject.R
 import org.mireiavh.finalproject.utils.CustomAdvertisingText
 import org.mireiavh.finalproject.utils.CustomDetailButton
@@ -39,7 +40,7 @@ import org.mireiavh.finalproject.utils.CustomText
 import org.mireiavh.finalproject.utils.CustomTitleText
 
 @Composable
-fun SignUpView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: FirebaseAuth) {
+fun SignUpView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: AuthManager) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -87,15 +88,15 @@ fun SignUpView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: Fi
             Spacer(modifier = Modifier.height(20.dp))
 
             CustomDetailButton(onClick = {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        Log.i("aris", "LOGIN OK")
+                auth.createUserWithEmailAndPassword(email, password,
+                    onSuccess = {
+                        Log.i("auth", "REGISTRATION OK")
                         navigateToHome()
-
-                    }else{
-                        Log.i("aris", "LOGIN noooooooo")
+                    },
+                    onFailure = {
+                        Log.e("auth", "REGISTRATION FAILED", it)
                     }
-                }
+                )
             }, stringResource(id = R.string.register_text), Modifier.width(150.dp).align(Alignment.CenterHorizontally))
 
             Spacer(modifier = Modifier.weight(.1f))

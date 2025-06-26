@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.googleServices)
     alias(libs.plugins.crashlytics)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -30,6 +31,7 @@ kotlin {
 
             implementation(libs.androidx.navigation.compose)
             implementation(libs.google.auth)
+            implementation(libs.androidx.compose.material)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

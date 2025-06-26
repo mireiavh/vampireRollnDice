@@ -20,6 +20,7 @@ services = "4.4.2"
 crashlytics = "3.0.4"
 google-auth = "21.0.0"
 navigationCompose = "2.8.9"
+composeMaterial = "1.8.2"
 
 
 [libraries]
@@ -44,8 +45,8 @@ firebase-crashlytics = {module = "com.google.firebase:firebase-crashlytics"}
 firebase-auth = {module = "com.google.firebase:firebase-auth-ktx"}
 google-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google-auth" }
 
-
 androidx-navigation-compose = {module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose"}
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "composeMaterial" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -53,6 +54,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 googleServices = {id = "com.google.gms.google-services", version.ref = "services"}
 crashlytics = {id = "com.google.firebase.crashlytics", version.ref = "crashlytics"}
 
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }

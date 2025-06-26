@@ -7,13 +7,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.mireiavh.finalproject.navigation.CharacterTabSection
 
 @Composable
-fun HomeView (){
+fun CharacterTabView (){
 
     Box(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Vista Home")
+            Text("Vista Character")
         }
     }
 

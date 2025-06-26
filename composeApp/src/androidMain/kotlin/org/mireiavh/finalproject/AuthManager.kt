@@ -57,5 +57,37 @@ class AuthManager(private val context: Context) {
         }
     }
 
+    fun signInWithEmailAndPassword(
+        email: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onFailure(task.exception ?: Exception("Login failed"))
+                }
+            }
+    }
+
+    fun createUserWithEmailAndPassword(
+        email: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onFailure(task.exception ?: Exception("Registration failed"))
+                }
+            }
+    }
+
     fun getCurrentUser() = auth.currentUser
 }
