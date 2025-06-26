@@ -1,5 +1,6 @@
 package org.mireiavh.finalproject
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
@@ -9,14 +10,24 @@ import org.mireiavh.finalproject.presentation.HomeView
 import org.mireiavh.finalproject.presentation.InitialView
 import org.mireiavh.finalproject.presentation.LoginView
 import org.mireiavh.finalproject.presentation.SignUpView
+
 @Composable
 fun NavigationWrapper(
     navHostController: NavHostController,
-    auth: FirebaseAuth,
-    onGoogleLoginClick: () -> Unit
+    isUserLoggedIn: Boolean,
+    onGoogleLoginClick: () -> Unit,
+    onSignOutClick: () -> Unit,
+    auth : AuthManager
 ) {
-    NavHost(navController = navHostController, startDestination = "initial") {
-        composable("initial") {
+    val startDestination = if (isUserLoggedIn) {
+        Log.i("LOG_IN", "user " + (auth.getCurrentUser()?.email ?: "no user logged in"))
+        "home"
+    } else {
+        "auth"
+    }
+
+    NavHost(navController = navHostController, startDestination = startDestination) {
+        composable("auth") {
             InitialView(
                 navigateToLogin = { navHostController.navigate("logIn") },
                 navigateToSignUp = { navHostController.navigate("signUp") },
@@ -25,16 +36,16 @@ fun NavigationWrapper(
         }
         composable("logIn") {
             LoginView(
-                navigateToInitial = { navHostController.navigate("initial") },
+                navigateToInitial = { navHostController.navigate("auth") },
                 navigateToHome = { navHostController.navigate("home") },
-                auth = auth
+                auth = FirebaseAuth.getInstance()
             )
         }
         composable("signUp") {
             SignUpView(
-                navigateToInitial = { navHostController.navigate("initial") },
+                navigateToInitial = { navHostController.navigate("auth") },
                 navigateToHome = { navHostController.navigate("home") },
-                auth = auth
+                auth = FirebaseAuth.getInstance()
             )
         }
         composable("home") {

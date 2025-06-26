@@ -66,7 +66,7 @@ fun SignUpView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: Fi
             }
             Spacer(modifier = Modifier.height(20.dp))
 
-            CustomTitleText(stringResource(id = R.string.login_text), TextAlign.Center)
+            CustomTitleText(stringResource(id = R.string.sign_up_text), TextAlign.Center)
 
             Spacer(modifier = Modifier.height(20.dp))
 

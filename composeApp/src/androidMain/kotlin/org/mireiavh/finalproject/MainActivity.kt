@@ -1,6 +1,7 @@
 package org.mireiavh.finalproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,71 +17,62 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.mireiavh.finalproject.presentation.InitialView
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var navHostController: NavHostController
-    private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var authManager: AuthManager
 
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-        try {
-            val account = task.getResult(ApiException::class.java)
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            signInWithGoogleCredential(credential) {
-                navHostController.navigate("home")
-            }
-        } catch (e: ApiException) {
-            println("Google sign in failed: $e")
-        }
-    }
-
-    fun signInWithGoogleCredential(credential: AuthCredential, home: () -> Unit) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    println("Usuario autenticado: ${user?.email}")
-                    home()
-                } else {
-                    println("Error al autenticar con Google: ${task.exception}")
+        authManager.handleSignInResult(
+            result.data,
+            this,
+            onSuccess = {
+                runOnUiThread {
+                    if (::navHostController.isInitialized) {
+                        navHostController.navigate("home") {
+                            popUpTo("auth") { inclusive = true }
+                        }
+                    }
+                }
+            },
+            onFailure = { e ->
+                runOnUiThread {
+                    println("Google sign in failed: $e")
                 }
             }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(this@MainActivity, gso)
-
+        authManager = AuthManager(this)
 
         setContent {
             navHostController = rememberNavController()
+
+            // Obtenemos usuario actual
+            val currentUser = authManager.getCurrentUser()
+
             NavigationWrapper(
-                navHostController,
-                auth,
+                navHostController = navHostController,
+                isUserLoggedIn = (currentUser != null),
                 onGoogleLoginClick = {
-                val signInIntent = googleSignInClient.signInIntent
-                launcher.launch(signInIntent)
-            })
-
-        }
-    }
-
-    override fun onStart(){
-        super.onStart()
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-
+                    val signInIntent = authManager.getSignInIntent()
+                    launcher.launch(signInIntent)
+                    Log.i("LOG_IN", "user " + authManager.getCurrentUser())
+                },
+                onSignOutClick = {
+                    authManager.signOut {
+                        navHostController.navigate("auth") {
+                            popUpTo("home") { inclusive = true }
+                        }
+                    }
+                },
+                auth = authManager
+            )
         }
     }
 }
