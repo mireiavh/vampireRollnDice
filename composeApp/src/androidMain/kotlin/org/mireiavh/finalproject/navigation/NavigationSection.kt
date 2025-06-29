@@ -46,6 +46,12 @@ import org.mireiavh.finalproject.utils.BorderedImageBox
 import org.mireiavh.finalproject.utils.CustomBottomNavigationItem
 import org.mireiavh.finalproject.utils.CustomButton
 import org.mireiavh.finalproject.utils.CustomDivider
+import org.mireiavh.finalproject.utils.CustomDrawerConfigurationSection
+import org.mireiavh.finalproject.utils.CustomDrawerDevsConfigSection
+import org.mireiavh.finalproject.utils.CustomDrawerSignOutSection
+import org.mireiavh.finalproject.utils.CustomDrawerSuportSection
+import org.mireiavh.finalproject.utils.CustomDrawerUserNameNImage
+import org.mireiavh.finalproject.utils.CustomDrawerUserTextProfile
 import org.mireiavh.finalproject.utils.CustomTitleText
 import org.mireiavh.finalproject.utils.CustomTopBar
 import org.mireiavh.finalproject.utils.DarkBrown
@@ -97,75 +103,14 @@ fun menuNavigation(
                     .background(DarkBrown)
                     .padding(16.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(stringResource(id = R.string.user_profile_text), color = White)
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Spacer(modifier = Modifier.height(40.dp))
-                    BorderedImageBox(R.drawable.logo_image_rc, null)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    auth.getCurrentUser()?.email?.let { CustomTitleText(it.toString(), textAlign = TextAlign.Center) }
-                    Spacer(modifier = Modifier.height(20.dp))
-                    CustomDivider()
-                }
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(id = R.string.configuration_text), color = Color.LightGray)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.change_lenguaje_text), color = White)
-                }
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(id = R.string.suport_text), color = Color.LightGray)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.suport_text), color = White)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    CustomDivider()
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.suport_info_text), color = White)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    CustomDivider()
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.customer_prefs_text), color = White)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    CustomDivider()
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.privacy_politics_text), color = White)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    CustomDivider()
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Text(stringResource(id = R.string.use_terms_text), color = White)
-                }
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(id = R.string.devs_config_text), color = Color.LightGray)
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(stringResource(id = R.string.app_version_text), color = White)
-                        Text("LST 1.0.0", color = Color.Gray)
-                    }
-                }
+                CustomDrawerUserTextProfile()
+                CustomDrawerUserNameNImage(auth)
+                CustomDrawerConfigurationSection()
+                CustomDrawerSuportSection()
+                CustomDrawerDevsConfigSection()
 
                 Spacer(modifier = Modifier.weight(1f))
-                CustomButton(
-                    onClick = { onSignOutClick() }, null, Color(0xFF4D0000),
-                    stringResource(id = R.string.sign_out_text),
-                    Color.Transparent
-                )
+                CustomDrawerSignOutSection(onSignOutClick)
             }
         },
         content = {
@@ -202,10 +147,7 @@ fun menuNavigation(
                     }
                 }
             ) { innerPadding ->
-                NavHost(
-                    navController,
-                    startDestination = HomeSection,
-                    modifier = Modifier.padding(innerPadding)
+                NavHost(navController, startDestination = HomeSection, modifier = Modifier.padding(innerPadding)
                 ) {
                     composable<HomeSection> { HomeView() }
                     composable<DiceSection> { DiceView() }

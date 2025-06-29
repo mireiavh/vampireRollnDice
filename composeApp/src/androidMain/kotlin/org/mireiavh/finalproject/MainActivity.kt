@@ -31,9 +31,7 @@ class MainActivity : ComponentActivity() {
             onSuccess = {
                 runOnUiThread {
                     currentUser.value = authManager.getCurrentUser()
-                    navHostController.navigate("appContent") {
-                        popUpTo("auth") { inclusive = true }
-                    }
+                    navHostController.navigate("appContent")
                 }
             },
             onFailure = { e ->
