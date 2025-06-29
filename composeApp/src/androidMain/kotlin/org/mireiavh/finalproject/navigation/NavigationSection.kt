@@ -1,17 +1,12 @@
 package org.mireiavh.finalproject.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.ModalDrawer
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
@@ -22,12 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -38,24 +30,18 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.mireiavh.finalproject.AuthManager
-import org.mireiavh.finalproject.R
 import org.mireiavh.finalproject.presentation.CharacterTabView
 import org.mireiavh.finalproject.presentation.DiceView
 import org.mireiavh.finalproject.presentation.HomeView
-import org.mireiavh.finalproject.utils.BorderedImageBox
 import org.mireiavh.finalproject.utils.CustomBottomNavigationItem
-import org.mireiavh.finalproject.utils.CustomButton
-import org.mireiavh.finalproject.utils.CustomDivider
 import org.mireiavh.finalproject.utils.CustomDrawerConfigurationSection
 import org.mireiavh.finalproject.utils.CustomDrawerDevsConfigSection
 import org.mireiavh.finalproject.utils.CustomDrawerSignOutSection
 import org.mireiavh.finalproject.utils.CustomDrawerSuportSection
 import org.mireiavh.finalproject.utils.CustomDrawerUserNameNImage
 import org.mireiavh.finalproject.utils.CustomDrawerUserTextProfile
-import org.mireiavh.finalproject.utils.CustomTitleText
 import org.mireiavh.finalproject.utils.CustomTopBar
 import org.mireiavh.finalproject.utils.DarkBrown
-import org.mireiavh.finalproject.utils.White
 
 @Serializable
 object HomeSection
@@ -115,17 +101,9 @@ fun menuNavigation(
         },
         content = {
             Scaffold(
-                topBar = {
-                    CustomTopBar(
-                        text = currentRoute?.name ?: "",
-                        onClick = { coroutineScope.launch { drawerState.open() } }
-                    )
-                },
+                topBar = { CustomTopBar(text = currentRoute?.name ?: "", onClick = { coroutineScope.launch { drawerState.open() } }) },
                 bottomBar = {
-                    BottomNavigation(
-                        backgroundColor = Color(0xFF800000),
-                        elevation = 8.dp
-                    ) {
+                    BottomNavigation(backgroundColor = Color(0xFF800000), elevation = 8.dp) {
                         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         topLevelRoutes.forEach { topLevelRoute ->
                             CustomBottomNavigationItem(
@@ -142,9 +120,7 @@ fun menuNavigation(
                                         restoreState = true
                                     }
                                 }
-                            )
-                        }
-                    }
+                            )}}
                 }
             ) { innerPadding ->
                 NavHost(navController, startDestination = HomeSection, modifier = Modifier.padding(innerPadding)

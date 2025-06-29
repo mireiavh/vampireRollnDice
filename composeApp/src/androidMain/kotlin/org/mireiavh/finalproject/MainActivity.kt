@@ -24,6 +24,8 @@ class MainActivity : ComponentActivity() {
     private lateinit var navHostController: NavHostController
     private lateinit var authManager: AuthManager
 
+    private val currentUser = mutableStateOf(Firebase.auth.currentUser)
+
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         authManager.handleSignInResult(
             result.data,
@@ -36,40 +38,52 @@ class MainActivity : ComponentActivity() {
             },
             onFailure = { e ->
                 runOnUiThread {
-                    Log.e("MainActivity", "Google sign in failed", e)
+                    Log.e("MainActivity", "Error launching Google SignIn failed", e)
                 }
             }
         )
 
     }
 
-    private val currentUser = mutableStateOf(Firebase.auth.currentUser)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        authManager = AuthManager(this)
+        try {
+            authManager = AuthManager(this)
 
-        setContent {
-            navHostController = rememberNavController()
+            setContent {
+                navHostController = rememberNavController()
 
-            NavigationWrapper(
-                navHostController = navHostController,
-                isUserLoggedIn = (currentUser.value != null),
-                onGoogleLoginClick = {
-                    val signInIntent = authManager.getSignInIntent()
-                    launcher.launch(signInIntent)
-                },
-                onSignOutClick = {
-                    authManager.signOut {
-                        currentUser.value = null
-                        navHostController.navigate("auth")
-                        Log.i("SIGN_OUT", "SIGN OUT OK")
-                    }
-                },
-                authManager = authManager
-            )
+                NavigationWrapper(
+                    navHostController = navHostController,
+                    isUserLoggedIn = (currentUser.value != null),
+                    onGoogleLoginClick = {
+                        try {
+                            val signInIntent = authManager.getSignInIntent()
+                            launcher.launch(signInIntent)
+                            Log.i("SIGN_IN", "OK Google Event SignIn")
+                        } catch (e: Exception) {
+                            Log.e("SIGN_IN", "Error Google Event SignIn", e)
+                        }
+                    },
+                    onSignOutClick = {
+                        try {
+                            authManager.signOut {
+                                currentUser.value = null
+                                navHostController.navigate("auth")
+                                Log.i("SIGN_OUT", "OK Firebase/Google Event SignOut")
+                            }
+                        } catch (e: Exception) {
+                            Log.e("SIGN_OUT", "Error during Event SignOut", e)
+                        }
+                    },
+                    authManager = authManager
+                )
+            }
+
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error in onCreate", e)
         }
     }
 }

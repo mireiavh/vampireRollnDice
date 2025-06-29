@@ -30,4 +30,8 @@
     <string name="app_version_text">"Versión de la aplicación"</string>
     <string name="num_app_version_text">"LTS 1.0.0"</string>
 
+    <string name="home_text_route">Manuales</string>
+    <string name="dice_text_route">Dados</string>
+    <string name="characters_text_route">Personajes</string>
+
 </resources>
