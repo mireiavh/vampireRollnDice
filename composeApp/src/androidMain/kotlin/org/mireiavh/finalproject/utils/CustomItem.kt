@@ -204,9 +204,19 @@ fun CustomDivider(){
 }
 
 @Composable
+fun CustomFullDivider(){
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(1.dp)
+            .background(Color(0xFF4D0000))
+    )
+}
+
+@Composable
 fun CustomTopBar(text: String, onClick: () -> Unit){
     TopAppBar(
-        backgroundColor = Color(0xFF800000),
+        backgroundColor = DeepRed,
         title = { androidx.compose.material.Text(text, fontWeight = FontWeight.Bold, color = Color.White) },
         navigationIcon = {
             IconButton(onClick = { onClick() }) {

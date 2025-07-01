@@ -34,14 +34,11 @@ import org.mireiavh.finalproject.presentation.CharacterTabView
 import org.mireiavh.finalproject.presentation.DiceView
 import org.mireiavh.finalproject.presentation.HomeView
 import org.mireiavh.finalproject.utils.CustomBottomNavigationItem
-import org.mireiavh.finalproject.utils.CustomDrawerConfigurationSection
-import org.mireiavh.finalproject.utils.CustomDrawerDevsConfigSection
 import org.mireiavh.finalproject.utils.CustomDrawerSignOutSection
-import org.mireiavh.finalproject.utils.CustomDrawerSuportSection
-import org.mireiavh.finalproject.utils.CustomDrawerUserNameNImage
-import org.mireiavh.finalproject.utils.CustomDrawerUserTextProfile
+import org.mireiavh.finalproject.utils.CustomModalDrawer
 import org.mireiavh.finalproject.utils.CustomTopBar
 import org.mireiavh.finalproject.utils.DarkBrown
+import org.mireiavh.finalproject.utils.DeepRed
 
 @Serializable
 object HomeSection
@@ -52,16 +49,23 @@ object DiceSection
 @Serializable
 object CharacterTabSection
 
-data class TopLevelRoute<T : Any> (
-    val name : String,
-    val route : T,
-    val icon : ImageVector
+val routeMap = mapOf(
+    HomeSection to "home",
+    DiceSection to "dice",
+    CharacterTabSection to "character_tab"
+)
+
+data class TopLevelRoute<T : Any>(
+    val name: String,
+    val routeObject: T,
+    val routeString: String,
+    val icon: ImageVector
 )
 
 val topLevelRoutes = listOf(
-    TopLevelRoute("Manuales", HomeSection, Icons.Default.Home),
-    TopLevelRoute("Dados", DiceSection, Icons.Default.Add),
-    TopLevelRoute("Personajes", CharacterTabSection, Icons.Default.AccountBox)
+    TopLevelRoute("Manuales", HomeSection, routeMap[HomeSection]!!, Icons.Default.Home),
+    TopLevelRoute("Dados", DiceSection, routeMap[DiceSection]!!, Icons.Default.Add),
+    TopLevelRoute("Personajes", CharacterTabSection, routeMap[CharacterTabSection]!!, Icons.Default.AccountBox)
 )
 
 
@@ -76,8 +80,9 @@ fun menuNavigation(
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val currentRoute = topLevelRoutes.find { route ->
-        currentDestination?.hierarchy?.any { it.route == route.route } == true
+
+    val currentRoute = topLevelRoutes.find { topRoute ->
+        currentDestination?.hierarchy?.any { it.route == topRoute.routeString } == true
     }
 
     ModalDrawer(
@@ -89,30 +94,30 @@ fun menuNavigation(
                     .background(DarkBrown)
                     .padding(16.dp)
             ) {
-                CustomDrawerUserTextProfile()
-                CustomDrawerUserNameNImage(auth)
-                CustomDrawerConfigurationSection()
-                CustomDrawerSuportSection()
-                CustomDrawerDevsConfigSection()
-
+                CustomModalDrawer(auth)
                 Spacer(modifier = Modifier.weight(1f))
                 CustomDrawerSignOutSection(onSignOutClick)
             }
         },
         content = {
             Scaffold(
-                topBar = { CustomTopBar(text = currentRoute?.name ?: "", onClick = { coroutineScope.launch { drawerState.open() } }) },
+                topBar = {
+                    CustomTopBar(
+                        text = currentRoute?.name ?: "",
+                        onClick = { coroutineScope.launch { drawerState.open() } }
+                    )
+                },
                 bottomBar = {
-                    BottomNavigation(backgroundColor = Color(0xFF800000), elevation = 8.dp) {
+                    BottomNavigation(backgroundColor = DeepRed, elevation = 8.dp) {
                         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         topLevelRoutes.forEach { topLevelRoute ->
                             CustomBottomNavigationItem(
                                 route = topLevelRoute,
                                 isSelected = currentDestination?.hierarchy?.any {
-                                    it.route == topLevelRoute.route
+                                    it.route == topLevelRoute.routeString
                                 } == true,
                                 onClick = {
-                                    navController.navigate(topLevelRoute.route) {
+                                    navController.navigate(topLevelRoute.routeString) {
                                         popUpTo(navController.graph.findStartDestination().id) {
                                             saveState = true
                                         }
@@ -120,17 +125,21 @@ fun menuNavigation(
                                         restoreState = true
                                     }
                                 }
-                            )}}
+                            )
+                        }
+                    }
                 }
             ) { innerPadding ->
-                NavHost(navController, startDestination = HomeSection, modifier = Modifier.padding(innerPadding)
+                NavHost(
+                    navController,
+                    startDestination = routeMap[HomeSection]!!,
+                    modifier = Modifier.padding(innerPadding)
                 ) {
-                    composable<HomeSection> { HomeView() }
-                    composable<DiceSection> { DiceView() }
-                    composable<CharacterTabSection> { CharacterTabView() }
+                    composable(routeMap[HomeSection]!!) { HomeView() }
+                    composable(routeMap[DiceSection]!!) { DiceView() }
+                    composable(routeMap[CharacterTabSection]!!) { CharacterTabView() }
                 }
             }
-
         }
     )
 }
