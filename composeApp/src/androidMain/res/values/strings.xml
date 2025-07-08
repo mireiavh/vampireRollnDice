@@ -34,4 +34,17 @@
     <string name="dice_text_route">Dados</string>
     <string name="characters_text_route">Personajes</string>
 
+    <string name="master_tag_manual_text">Master</string>
+    <string name="player_tag_manual_text">Player</string>
+    <string name="advance_tag_manual_text">Advance</string>
+    <string name="middle_tag_manual_text">Middle</string>
+    <string name="basic_tag_manual_text">Basic</string>
+    <string name="free_tag_manual_text">Gratis</string>
+    <string name="new_tag_manual_text">Nuevo</string>
+
+    <string name="english_tag_es">Inglés</string>
+    <string name="spanish_tag_es">Español</string>
+    <string name="english_tag_en">English</string>
+    <string name="spanish_tag_en">Spanish</string>
+
 </resources>

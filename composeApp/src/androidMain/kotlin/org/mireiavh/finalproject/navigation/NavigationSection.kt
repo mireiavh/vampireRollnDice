@@ -1,5 +1,6 @@
 package org.mireiavh.finalproject.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,8 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.mireiavh.finalproject.AuthManager
+import org.mireiavh.finalproject.infrastructure.FirebaseManualRepository
+import org.mireiavh.finalproject.infrastructure.ManualViewModel
 import org.mireiavh.finalproject.presentation.CharacterTabView
 import org.mireiavh.finalproject.presentation.DiceView
 import org.mireiavh.finalproject.presentation.HomeView
@@ -68,7 +71,7 @@ val topLevelRoutes = listOf(
     TopLevelRoute("Personajes", CharacterTabSection, routeMap[CharacterTabSection]!!, Icons.Default.AccountBox)
 )
 
-
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun menuNavigation(
     onSignOutClick: () -> Unit,
@@ -108,7 +111,7 @@ fun menuNavigation(
                     )
                 },
                 bottomBar = {
-                    BottomNavigation(backgroundColor = DeepRed, elevation = 8.dp) {
+                    BottomNavigation(backgroundColor = DarkBrown, elevation = 8.dp) {
                         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         topLevelRoutes.forEach { topLevelRoute ->
                             CustomBottomNavigationItem(
@@ -135,7 +138,11 @@ fun menuNavigation(
                     startDestination = routeMap[HomeSection]!!,
                     modifier = Modifier.padding(innerPadding)
                 ) {
-                    composable(routeMap[HomeSection]!!) { HomeView() }
+                    composable(routeMap[HomeSection]!!) {
+                        val repository = FirebaseManualRepository()
+                        val manualViewModel = ManualViewModel(repository)
+                        HomeView(viewModel = manualViewModel)
+                    }
                     composable(routeMap[DiceSection]!!) { DiceView() }
                     composable(routeMap[CharacterTabSection]!!) { CharacterTabView() }
                 }
@@ -143,4 +150,3 @@ fun menuNavigation(
         }
     )
 }
-

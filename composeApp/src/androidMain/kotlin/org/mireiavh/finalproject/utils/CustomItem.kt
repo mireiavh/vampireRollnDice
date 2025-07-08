@@ -53,6 +53,17 @@ fun CustomTitleText(title: String, textAlign: TextAlign?){
 }
 
 @Composable
+fun CustomTitleText2(title: String, textAlign: TextAlign?){
+    Text(
+        title,
+        color = Color.White,
+        fontSize = 18.sp,
+        textAlign = textAlign,
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun CustomDirectionalText(text: String, onClick: () -> Unit){
     Text(
         text,
@@ -216,7 +227,7 @@ fun CustomFullDivider(){
 @Composable
 fun CustomTopBar(text: String, onClick: () -> Unit){
     TopAppBar(
-        backgroundColor = DeepRed,
+        backgroundColor = DarkBrown,
         title = { androidx.compose.material.Text(text, fontWeight = FontWeight.Bold, color = Color.White) },
         navigationIcon = {
             IconButton(onClick = { onClick() }) {

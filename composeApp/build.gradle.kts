@@ -19,7 +19,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     sourceSets {
 
         androidMain.dependencies {
@@ -43,7 +43,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
-            // Aquí no va Firebase
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -53,7 +52,7 @@ kotlin {
 
 android {
     namespace = "org.mireiavh.finalproject"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "org.mireiavh.finalproject"
@@ -79,6 +78,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.firestore.ktx)
     debugImplementation(compose.uiTooling)
 }
 

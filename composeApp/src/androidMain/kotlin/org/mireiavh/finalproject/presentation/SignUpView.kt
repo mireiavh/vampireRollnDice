@@ -38,6 +38,7 @@ import org.mireiavh.finalproject.utils.CustomImage
 import org.mireiavh.finalproject.utils.CustomInput
 import org.mireiavh.finalproject.utils.CustomText
 import org.mireiavh.finalproject.utils.CustomTitleText
+import org.mireiavh.finalproject.utils.LoadDataExample
 
 @Composable
 fun SignUpView(navigateToInitial:() -> Unit, navigateToHome:() -> Unit, auth: AuthManager) {
