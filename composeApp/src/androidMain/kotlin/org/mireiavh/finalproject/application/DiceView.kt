@@ -1,4 +1,4 @@
-package org.mireiavh.finalproject.presentation
+package org.mireiavh.finalproject.application
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

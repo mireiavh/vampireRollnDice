@@ -1,8 +1,8 @@
-package org.mireiavh.finalproject.infrastructure
+package org.mireiavh.finalproject.infrastructure.dtos
 
 
 data class ManualDto(
-    var id: Number = 0,
+    var id: String = "",
     var title: String = "",
     var description: String = "",
     var poster: String = "",

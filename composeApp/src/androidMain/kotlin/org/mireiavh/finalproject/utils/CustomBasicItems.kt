@@ -1,6 +1,12 @@
 package org.mireiavh.finalproject.utils
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,18 +19,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.mireiavh.finalproject.domain.model.Manual
 import org.mireiavh.finalproject.navigation.TopLevelRoute
 
 
@@ -284,4 +297,38 @@ fun BorderedImageBox(imageRes: Int, contentDescription: String? = null) {
             modifier = Modifier.fillMaxSize()
         )
     }
+}
+
+@Composable
+fun SearchTextField(
+    searchQuery: MutableState<String>,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = searchQuery.value,
+        onValueChange = { searchQuery.value = it },
+        label = { Text("Buscar recursos...", color = Color.White) },
+        singleLine = true,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Buscar",
+                tint = LightBrown
+            )
+        },
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = LightBrown,
+            focusedBorderColor = DeepRed,
+            cursorColor = Peach,
+            focusedLabelColor = Peach,
+            unfocusedLabelColor = Color.White,
+            unfocusedTextColor = Color.Gray,
+            focusedTextColor = Color.White,
+            unfocusedContainerColor = DarkBrown,
+            focusedContainerColor = DarkBrown
+        )
+    )
 }

@@ -1,4 +1,4 @@
-package org.mireiavh.finalproject.presentation
+package org.mireiavh.finalproject.application
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.firebase.auth.FirebaseAuth
 import org.mireiavh.finalproject.AuthManager
 import org.mireiavh.finalproject.R
 import org.mireiavh.finalproject.utils.CustomAdvertisingText

@@ -1,11 +1,11 @@
-package org.mireiavh.finalproject.model
+package org.mireiavh.finalproject.domain.model
 
 import androidx.annotation.StringRes
 import org.mireiavh.finalproject.R
 import java.io.Serializable
 
 data class Manual(
-    var id: Number = 0,
+    var id: String = "",
     var title: String = "",
     var description: String = "",
     var poster: String = "",

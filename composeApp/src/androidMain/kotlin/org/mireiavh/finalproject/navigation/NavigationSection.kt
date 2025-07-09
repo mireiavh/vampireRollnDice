@@ -19,11 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -32,16 +32,15 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.mireiavh.finalproject.AuthManager
 import org.mireiavh.finalproject.infrastructure.FirebaseManualRepository
-import org.mireiavh.finalproject.infrastructure.ManualViewModel
-import org.mireiavh.finalproject.presentation.CharacterTabView
-import org.mireiavh.finalproject.presentation.DiceView
-import org.mireiavh.finalproject.presentation.HomeView
+import org.mireiavh.finalproject.infrastructure.controllers.ManualViewModel
+import org.mireiavh.finalproject.application.CharacterTabView
+import org.mireiavh.finalproject.application.DiceView
+import org.mireiavh.finalproject.application.HomeView
 import org.mireiavh.finalproject.utils.CustomBottomNavigationItem
 import org.mireiavh.finalproject.utils.CustomDrawerSignOutSection
 import org.mireiavh.finalproject.utils.CustomModalDrawer
 import org.mireiavh.finalproject.utils.CustomTopBar
 import org.mireiavh.finalproject.utils.DarkBrown
-import org.mireiavh.finalproject.utils.DeepRed
 
 @Serializable
 object HomeSection

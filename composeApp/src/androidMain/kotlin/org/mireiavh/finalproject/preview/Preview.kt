@@ -2,8 +2,8 @@ package org.mireiavh.finalproject.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import org.mireiavh.finalproject.presentation.InitialView
-import org.mireiavh.finalproject.presentation.LoginView
+import org.mireiavh.finalproject.application.InitialView
+import org.mireiavh.finalproject.application.LoginView
 
 
 @Preview(showBackground = true)

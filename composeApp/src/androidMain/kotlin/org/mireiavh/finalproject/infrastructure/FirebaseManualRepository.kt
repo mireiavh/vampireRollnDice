@@ -2,10 +2,11 @@ package org.mireiavh.finalproject.infrastructure
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import org.mireiavh.finalproject.data.ManualRepository
-import org.mireiavh.finalproject.model.Manual
-import org.mireiavh.finalproject.model.toLanguageType
-import org.mireiavh.finalproject.model.toTagType
+import org.mireiavh.finalproject.domain.data.ManualRepository
+import org.mireiavh.finalproject.infrastructure.dtos.ManualDto
+import org.mireiavh.finalproject.domain.model.Manual
+import org.mireiavh.finalproject.domain.model.toLanguageType
+import org.mireiavh.finalproject.domain.model.toTagType
 
 class FirebaseManualRepository(
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()

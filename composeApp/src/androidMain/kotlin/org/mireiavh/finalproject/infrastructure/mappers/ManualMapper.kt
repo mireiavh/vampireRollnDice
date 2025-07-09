@@ -1,8 +1,9 @@
-package org.mireiavh.finalproject.infrastructure
+package org.mireiavh.finalproject.infrastructure.mappers
 
-import org.mireiavh.finalproject.model.Manual
-import org.mireiavh.finalproject.model.toLanguageType
-import org.mireiavh.finalproject.model.toTagType
+import org.mireiavh.finalproject.infrastructure.dtos.ManualDto
+import org.mireiavh.finalproject.domain.model.Manual
+import org.mireiavh.finalproject.domain.model.toLanguageType
+import org.mireiavh.finalproject.domain.model.toTagType
 
 fun ManualDto.toManual(): Manual {
     return Manual(

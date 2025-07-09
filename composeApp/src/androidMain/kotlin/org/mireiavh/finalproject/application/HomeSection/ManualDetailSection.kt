@@ -1,4 +1,4 @@
-package org.mireiavh.finalproject.presentation
+package org.mireiavh.finalproject.application.HomeSection
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,12 +14,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import org.mireiavh.finalproject.R
-import org.mireiavh.finalproject.infrastructure.ManualViewModel
+import org.mireiavh.finalproject.infrastructure.controllers.ManualViewModel
 import org.mireiavh.finalproject.utils.DarkBrown
-import org.mireiavh.finalproject.utils.ManualListScreen
 
 @Composable
-fun HomeView(viewModel: ManualViewModel) {
+fun ManualDetailSection(
+    viewModel: ManualViewModel
+) {
 
     Box(
         modifier = Modifier
@@ -44,7 +45,7 @@ fun HomeView(viewModel: ManualViewModel) {
                 .padding(horizontal = 10.dp, vertical = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ManualListScreen(viewModel = viewModel)
+            HomeMenuSection(viewModel = viewModel)
         }
     }
 }

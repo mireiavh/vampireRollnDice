@@ -1,16 +1,13 @@
 package org.mireiavh.finalproject
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.google.firebase.auth.FirebaseAuth
 import org.mireiavh.finalproject.navigation.menuNavigation
-import org.mireiavh.finalproject.presentation.HomeView
-import org.mireiavh.finalproject.presentation.InitialView
-import org.mireiavh.finalproject.presentation.LoginView
-import org.mireiavh.finalproject.presentation.SignUpView
+import org.mireiavh.finalproject.application.InitialView
+import org.mireiavh.finalproject.application.LoginView
+import org.mireiavh.finalproject.application.SignUpView
 
 @Composable
 fun NavigationWrapper(
@@ -62,5 +59,6 @@ fun NavigationWrapper(
                 auth = authManager
             )
         }
+
     }
 }

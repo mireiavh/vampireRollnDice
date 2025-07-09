@@ -2,8 +2,8 @@ package org.mireiavh.finalproject.domain
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import org.mireiavh.finalproject.data.ManualRepository
-import org.mireiavh.finalproject.model.Manual
+import org.mireiavh.finalproject.domain.data.ManualRepository
+import org.mireiavh.finalproject.domain.model.Manual
 
 /*
 class ManualRepositoryImpl(

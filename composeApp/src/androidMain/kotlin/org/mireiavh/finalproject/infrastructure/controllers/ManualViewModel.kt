@@ -1,4 +1,4 @@
-package org.mireiavh.finalproject.infrastructure
+package org.mireiavh.finalproject.infrastructure.controllers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.mireiavh.finalproject.data.ManualRepository
-import org.mireiavh.finalproject.model.Manual
+import org.mireiavh.finalproject.domain.data.ManualRepository
+import org.mireiavh.finalproject.domain.model.Manual
 
 data class ManualsUiState(
     val manuals: List<Manual> = emptyList(),
