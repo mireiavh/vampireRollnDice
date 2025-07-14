@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -41,20 +42,18 @@ import org.mireiavh.finalprojectt.ui.DiceView
 import org.mireiavh.finalprojectt.ui.HomeSection.ManualDetailSection
 import org.mireiavh.finalprojectt.ui.HomeView
 import org.mireiavh.finalprojectt.domain.model.Manual
+import org.mireiavh.finalprojectt.infrastructure.FirebaseDiceRollRepository
+import org.mireiavh.finalprojectt.infrastructure.controllers.DiceRollViewModel
+import org.mireiavh.finalprojectt.infrastructure.controllers.DiceRollViewModelFactory
 import org.mireiavh.finalprojectt.utils.CustomBottomNavigationItem
 import org.mireiavh.finalprojectt.utils.CustomDrawerSignOutSection
 import org.mireiavh.finalprojectt.utils.CustomModalDrawer
 import org.mireiavh.finalprojectt.utils.CustomTopBar
 import org.mireiavh.finalprojectt.utils.DarkBrown
 
-@Serializable
-object HomeSection
-
-@Serializable
-object DiceSection
-
-@Serializable
-object CharacterTabSection
+@Serializable object HomeSection
+@Serializable object DiceSection
+@Serializable object CharacterTabSection
 
 val routeMap = mapOf(
     HomeSection to "home",
@@ -91,6 +90,13 @@ fun menuNavigation(
     val currentRoute = topLevelRoutes.find { topRoute ->
         currentDestination?.hierarchy?.any { it.route == topRoute.routeString } == true
     }
+
+    val userId = auth.getCurrentUser()?.uid ?: ""
+    val manualId = "default_manual_id"
+
+    val diceRollViewModel = viewModel<DiceRollViewModel>(
+        factory = DiceRollViewModelFactory(FirebaseDiceRollRepository())
+    )
 
     ModalDrawer(
         drawerState = drawerState,
@@ -150,8 +156,7 @@ fun menuNavigation(
                             onMoreInfoClick = { manual ->
                                 val gson = Gson()
                                 val manualJson = gson.toJson(manual)
-                                val encodedManualJson =
-                                    java.net.URLEncoder.encode(manualJson, "UTF-8")
+                                val encodedManualJson = java.net.URLEncoder.encode(manualJson, "UTF-8")
                                 navController.navigate("manualDetail/$encodedManualJson")
                             },
                             navController = navController
@@ -178,8 +183,17 @@ fun menuNavigation(
                         ManualDetailSection(viewModel = manualViewModel)
                     }
 
-                    composable(routeMap[DiceSection]!!) { DiceView() }
-                    composable(routeMap[CharacterTabSection]!!) { CharacterTabView() }
+                    composable(routeMap[DiceSection]!!) {
+                        DiceView(
+                            viewModel = diceRollViewModel,
+                            userId = userId,
+                            manualId = manualId
+                        )
+                    }
+
+                    composable(routeMap[CharacterTabSection]!!) {
+                        CharacterTabView()
+                    }
                 }
             }
         }
