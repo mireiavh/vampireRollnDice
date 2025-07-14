@@ -32,6 +32,9 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
             implementation(libs.google.auth)
             implementation(libs.androidx.compose.material)
+
+            implementation(libs.gson)
+            implementation(libs.coil.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -51,11 +54,11 @@ kotlin {
 }
 
 android {
-    namespace = "org.mireiavh.finalproject"
+    namespace = "org.mireiavh.finalprojectt"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "org.mireiavh.finalproject"
+        applicationId = "org.mireiavh.finalprojectt"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

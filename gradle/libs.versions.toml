@@ -22,7 +22,8 @@ google-auth = "21.0.0"
 navigationCompose = "2.8.9"
 composeMaterial = "1.8.2"
 firebaseFirestoreKtx = "25.1.4"
-
+gson = "2.10.1"
+coil = "2.4.0"
 
 
 [libraries]
@@ -50,6 +51,9 @@ google-auth = { module = "com.google.android.gms:play-services-auth", version.re
 androidx-navigation-compose = {module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose"}
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "composeMaterial" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "887900359782",
-    "project_id": "vampirefirebase",
-    "storage_bucket": "vampirefirebase.firebasestorage.app"
+    "project_number": "824170840327",
+    "project_id": "vampirerollndice",
+    "storage_bucket": "vampirerollndice.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:887900359782:android:4ff3b4f9f8dade2e3df1a7",
+        "mobilesdk_app_id": "1:824170840327:android:5f04ce9a5a464ecee605a2",
         "android_client_info": {
-          "package_name": "org.mireiavh.finalproject"
+          "package_name": "org.mireiavh.finalprojectt"
         }
       },
       "oauth_client": [
         {
-          "client_id": "887900359782-7g2rogepdpe6t8ahqeu67ubncjbg1jff.apps.googleusercontent.com",
+          "client_id": "824170840327-37r1qp8eiunrfp1nutmd5fon85mh88q3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.mireiavh.finalproject",
+            "package_name": "org.mireiavh.finalprojectt",
             "certificate_hash": "c1a0d975eee8e6da1bf646961135bca893b36ecc"
           }
         },
         {
-          "client_id": "887900359782-6huaa1cg7r11in73u8abocap5457ib8s.apps.googleusercontent.com",
+          "client_id": "824170840327-0mj3dlo67m5pm38qr4083bptoiqrp9c0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAOoNp5YhmCospKOeHh3RJEvDnlZTEfghM"
+          "current_key": "AIzaSyD8oCb4co7ek5u-H9uSoVo2hOW2IqL2O_s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "887900359782-6huaa1cg7r11in73u8abocap5457ib8s.apps.googleusercontent.com",
+              "client_id": "824170840327-0mj3dlo67m5pm38qr4083bptoiqrp9c0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
