@@ -1,4 +1,4 @@
-package org.mireiavh.finalprojectt.infrastructure
+package org.mireiavh.finalprojectt.infrastructure.repositories
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await

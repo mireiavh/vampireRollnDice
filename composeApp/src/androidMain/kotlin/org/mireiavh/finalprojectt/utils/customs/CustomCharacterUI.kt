@@ -29,6 +29,7 @@ import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 import org.mireiavh.finalprojectt.R
 import org.mireiavh.finalprojectt.domain.model.Character
+import org.mireiavh.finalprojectt.infrastructure.viewmodels.CharacterViewModel
 import org.mireiavh.finalprojectt.utils.DeepRed
 import org.mireiavh.finalprojectt.utils.Peach
 
@@ -176,7 +177,8 @@ fun CharacterCard(
 fun CustomAlertDialog(
     showDialog: Boolean,
     onDismiss: () -> Unit,
-    navController: NavController
+    navController: NavController,
+    viewModel: CharacterViewModel
 ) {
     if (showDialog) {
         AlertDialog(
@@ -207,6 +209,7 @@ fun CustomAlertDialog(
                     CustomDialogTextButtom(
                         onClick = {
                             onDismiss()
+                            viewModel.createNewCharacter()
                             navController.navigate("characterCreation")
                         },
                         text = stringResource(id = R.string.create_custom_ch_dialog_text_es)

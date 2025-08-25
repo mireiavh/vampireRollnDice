@@ -39,13 +39,7 @@ class CharacterViewModel(
 
     fun saveCharacter(userId: String, character: Character) {
         viewModelScope.launch {
-            val characterToSave = if (character.id.isBlank()) {
-                character.copy(id = UUID.randomUUID().toString())
-            } else {
-                character
-            }
-
-            repository.saveCharacter(userId, characterToSave)
+            repository.saveCharacter(userId, character)
             loadCharacters(userId)
         }
     }
@@ -60,7 +54,7 @@ class CharacterViewModel(
     }
 
     fun createNewCharacter() {
-        _editableCharacter.value = Character()
+        _editableCharacter.value = Character(id = "")
     }
 }
 

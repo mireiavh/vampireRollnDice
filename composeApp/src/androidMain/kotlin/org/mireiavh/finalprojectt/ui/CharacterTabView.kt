@@ -143,7 +143,8 @@ fun CharacterTabView(
             CustomAlertDialog(
                 showDialog = showDialog,
                 onDismiss = { showDialog = false },
-                navController = navController
+                navController = navController,
+                viewModel = viewModel
             )
         }
     }

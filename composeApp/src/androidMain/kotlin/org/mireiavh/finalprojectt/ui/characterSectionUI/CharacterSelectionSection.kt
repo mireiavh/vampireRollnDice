@@ -129,7 +129,7 @@ fun CharacterSelectionSection(
 
                             Spacer(modifier = Modifier.height(12.dp))
 
-                            Text("Pertenece al clan de los ${character.clan}")
+                            Text("Pertenece al clan de los ${character.clan}", color = Peach)
                         }
                     }
                 }

@@ -1,16 +1,15 @@
-package org.mireiavh.finalprojectt.navigation
+package org.mireiavh.finalprojectt.navigationManagers
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import org.mireiavh.finalprojectt.AuthManager
-import org.mireiavh.finalprojectt.infrastructure.FirebaseCharacterRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseCharacterRepository
 import org.mireiavh.finalprojectt.ui.InitialView
 import org.mireiavh.finalprojectt.ui.LoginView
 import org.mireiavh.finalprojectt.ui.SignUpView
-import org.mireiavh.finalprojectt.infrastructure.FirebaseManualRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseManualRepository
 import org.mireiavh.finalprojectt.infrastructure.viewmodels.CharacterViewModel
 import org.mireiavh.finalprojectt.infrastructure.viewmodels.CharacterViewModelFactory
 import org.mireiavh.finalprojectt.infrastructure.viewmodels.ManualViewModel

@@ -1,4 +1,4 @@
-package org.mireiavh.finalprojectt.navigation
+package org.mireiavh.finalprojectt.navigationManagers
 
 import CreateCharacterSection
 import android.annotation.SuppressLint
@@ -24,13 +24,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import org.mireiavh.finalprojectt.AuthManager
 import org.mireiavh.finalprojectt.R
-import org.mireiavh.finalprojectt.infrastructure.*
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseCharacterRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseDiceRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseGlobalCharacterRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseManualRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseUniverseRepository
 import org.mireiavh.finalprojectt.infrastructure.viewmodels.*
 import org.mireiavh.finalprojectt.ui.*
+import org.mireiavh.finalprojectt.ui.characterSectionUI.CharacterSelectionSection
 import org.mireiavh.finalprojectt.ui.characterSectionUI.GlobalCharacterDetailSection
 import org.mireiavh.finalprojectt.ui.homeSectionUI.ManualDetailDrawerView
 import org.mireiavh.finalprojectt.ui.homeSectionUI.UniverseDetailSection
@@ -223,6 +228,15 @@ fun menuNavigation(
 
                     composable(routeMap[DiceChatSection]!!) {
                         ChatView()
+                    }
+
+                    composable("globalCharacterSelection") {
+                        CharacterSelectionSection(
+                            globalViewModel = globalCharacterViewModel,
+                            userViewModel = characterViewModel,
+                            userId = FirebaseAuth.getInstance().currentUser?.uid ?: "",
+                            onCharacterSelected = { navController.popBackStack() }
+                        )
                     }
                 }
             }

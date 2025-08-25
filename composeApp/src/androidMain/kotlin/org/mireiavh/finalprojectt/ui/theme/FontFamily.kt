@@ -43,7 +43,6 @@ val AppTypography = Typography(
     )
 )
 
-// Colores de MaterialTheme
 private val LightColors = lightColors(
     primary = DarkBrown,
     primaryVariant = Crimson,

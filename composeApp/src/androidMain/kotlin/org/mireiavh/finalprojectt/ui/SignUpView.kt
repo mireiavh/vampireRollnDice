@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.mireiavh.finalprojectt.AuthManager
+import org.mireiavh.finalprojectt.navigationManagers.AuthManager
 import org.mireiavh.finalprojectt.R
 import org.mireiavh.finalprojectt.utils.customs.CustomAdvertisingText
 import org.mireiavh.finalprojectt.utils.customs.CustomDetailButton

@@ -16,7 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.mireiavh.finalprojectt.navigation.NavigationWrapper
+import org.mireiavh.finalprojectt.navigationManagers.AuthManager
+import org.mireiavh.finalprojectt.navigationManagers.NavigationWrapper
 import org.mireiavh.finalprojectt.utils.customs.LoadDataExample
 
 class MainActivity : ComponentActivity() {

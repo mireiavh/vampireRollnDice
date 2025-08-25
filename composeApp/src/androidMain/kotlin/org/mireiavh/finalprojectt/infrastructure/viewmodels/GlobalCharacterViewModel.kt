@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.mireiavh.finalprojectt.domain.model.Character
 import org.mireiavh.finalprojectt.infrastructure.GlobalCharacterRepository
-import org.mireiavh.finalprojectt.infrastructure.FirebaseGlobalCharacterRepository
+import org.mireiavh.finalprojectt.infrastructure.repositories.FirebaseGlobalCharacterRepository
 
 data class GlobalCharactersUiState(
     val characters: List<Character> = emptyList(),

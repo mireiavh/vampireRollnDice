@@ -1,9 +1,11 @@
-package org.mireiavh.finalprojectt.infrastructure
+package org.mireiavh.finalprojectt.infrastructure.repositories
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import org.mireiavh.finalprojectt.domain.model.Character
 import android.util.Log
+import org.mireiavh.finalprojectt.infrastructure.GlobalCharacterRepository
+import org.mireiavh.finalprojectt.infrastructure.toCharacter
 
 class FirebaseGlobalCharacterRepository(
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
