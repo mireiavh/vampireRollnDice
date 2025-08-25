@@ -47,4 +47,44 @@
     <string name="english_tag_en">English</string>
     <string name="spanish_tag_en">Spanish</string>
 
+
+    <!-- Texto de la aplicacion -->
+    <string name="search_bar_text_es">Buscar por nombre</string>
+    <string name="search_bar_text_en">Looking for name character</string>
+
+    <string name="options_text_es">Opciones</string>
+    <string name="delete_text_es">Eliminar</string>
+
+    <string name="create_ch_dialog_text_es">¿Qué tipo de ficha de personaje deseas crear?</string>
+    <string name="create_ch_dialog_text_en">What kind of character do you want to create?</string>
+    <string name="create_existed_ch_dialog_text_es">Crea un personaje existente</string>
+    <string name="create_custom_ch_dialog_text_es">Crea tu propio personaje</string>
+
+
+    <string name="cancel_text_es">Cancelar</string>
+    <string name="confirm_text_es">Aceptar</string>
+    <string name="delete_all_text_es">Sí, borrar todo</string>
+    <string name="create_ch_text_es">Crear nuevo personaje</string>
+    <string name="delete_list_qa_text_es">¿Estás seguro de que deseas borrar toda la lista?</string>
+    <string name="delete_dice_qa_text_es">¿Estás seguro de que deseas borrar este lanzamiento?</string>
+    <string name="delete_confirm_text_es">Confirmar eliminación</string>
+
+    <string name="select_dice_text_es">Selecciona los dados normales para relanzar la tirada</string>
+    <string name="reselect_dice_text_es">Relanzar seleccionados</string>
+
+    <string name="roll_text_es">Lanzar jugada de rol</string>
+    <string name="rouse_check_text_es">Lanzar un dado</string>
+
+    <string name="delete_list_text_es">Borrar lista</string>
+    <string name="leyend_text_es">Ver leyenda</string>
+
+    <string name="valid_ch_text_es">El título debe contener al menos una letra y no contener caracteres especiales</string>
+    <string name="valid_number_text_es">El texto debe ser un número entre 0 y 20</string>
+
+    <string name="title_dice_placholder_text_es">Agrega un titulo a la tirada</string>
+    <string name="dicepool_placeholder_text_es">Cantidad de dados</string>
+    <string name="fome_placholder_text_es">Dados de ira</string>
+
+
+
 </resources>

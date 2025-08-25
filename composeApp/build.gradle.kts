@@ -35,6 +35,11 @@ kotlin {
 
             implementation(libs.gson)
             implementation(libs.coil.compose)
+            implementation(libs.accompanist.flowlayout)
+
+            implementation("androidx.compose.ui:ui:1.8.3")
+            implementation("androidx.compose.ui:ui-graphics:1.8.3")
+            implementation("androidx.compose.material3:material3:1.1.1")
         }
         commonMain.dependencies {
             implementation(compose.runtime)

@@ -24,7 +24,7 @@ composeMaterial = "1.8.2"
 firebaseFirestoreKtx = "25.1.4"
 gson = "2.10.1"
 coil = "2.4.0"
-
+accompanist = "0.30.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -54,6 +54,7 @@ firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-fires
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -18,13 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.mireiavh.finalprojectt.R
-import org.mireiavh.finalprojectt.utils.CustomAdvertisingText
-import org.mireiavh.finalprojectt.utils.CustomButton
-import org.mireiavh.finalprojectt.utils.CustomDirectionalText
-import org.mireiavh.finalprojectt.utils.CustomDivider
-import org.mireiavh.finalprojectt.utils.CustomImage
-import org.mireiavh.finalprojectt.utils.CustomInfoItem
-import org.mireiavh.finalprojectt.utils.CustomTitleText
+import org.mireiavh.finalprojectt.utils.customs.CustomAdvertisingText
+import org.mireiavh.finalprojectt.utils.customs.CustomButton
+import org.mireiavh.finalprojectt.utils.customs.CustomDirectionalText
+import org.mireiavh.finalprojectt.utils.customs.CustomDivider
+import org.mireiavh.finalprojectt.utils.customs.CustomImage
+import org.mireiavh.finalprojectt.utils.customs.CustomInfoItem
+import org.mireiavh.finalprojectt.utils.customs.CustomTitleText
 
 @Composable
 fun InitialView (navigateToLogin:() -> Unit, navigateToSignUp: () -> Unit, onGoogleLoginClick: () -> Unit) {

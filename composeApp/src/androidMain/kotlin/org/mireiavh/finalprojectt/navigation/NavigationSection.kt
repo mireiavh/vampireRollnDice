@@ -1,7 +1,7 @@
 package org.mireiavh.finalprojectt.navigation
 
+import CreateCharacterSection
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.ModalDrawer
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.DrawerValue
 import androidx.compose.material3.Scaffold
@@ -20,58 +16,51 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.mireiavh.finalprojectt.AuthManager
-import org.mireiavh.finalprojectt.infrastructure.FirebaseManualRepository
-import org.mireiavh.finalprojectt.infrastructure.controllers.ManualViewModel
-import org.mireiavh.finalprojectt.ui.CharacterTabView
-import org.mireiavh.finalprojectt.ui.DiceView
-import org.mireiavh.finalprojectt.ui.HomeSection.ManualDetailSection
-import org.mireiavh.finalprojectt.ui.HomeView
-import org.mireiavh.finalprojectt.domain.model.Manual
-import org.mireiavh.finalprojectt.infrastructure.FirebaseDiceRollRepository
-import org.mireiavh.finalprojectt.infrastructure.controllers.DiceRollViewModel
-import org.mireiavh.finalprojectt.infrastructure.controllers.DiceRollViewModelFactory
-import org.mireiavh.finalprojectt.utils.CustomBottomNavigationItem
-import org.mireiavh.finalprojectt.utils.CustomDrawerSignOutSection
-import org.mireiavh.finalprojectt.utils.CustomModalDrawer
-import org.mireiavh.finalprojectt.utils.CustomTopBar
+import org.mireiavh.finalprojectt.R
+import org.mireiavh.finalprojectt.infrastructure.*
+import org.mireiavh.finalprojectt.infrastructure.viewmodels.*
+import org.mireiavh.finalprojectt.ui.*
+import org.mireiavh.finalprojectt.ui.characterSectionUI.GlobalCharacterDetailSection
+import org.mireiavh.finalprojectt.ui.homeSectionUI.ManualDetailDrawerView
+import org.mireiavh.finalprojectt.ui.homeSectionUI.UniverseDetailSection
+import org.mireiavh.finalprojectt.utils.customs.*
 import org.mireiavh.finalprojectt.utils.DarkBrown
 
 @Serializable object HomeSection
 @Serializable object DiceSection
 @Serializable object CharacterTabSection
+@Serializable object DiceChatSection
 
 val routeMap = mapOf(
     HomeSection to "home",
     DiceSection to "dice",
-    CharacterTabSection to "character_tab"
+    CharacterTabSection to "character_tab",
+    DiceChatSection to "dice_chat"
 )
 
 data class TopLevelRoute<T : Any>(
     val name: String,
     val routeObject: T,
     val routeString: String,
-    val icon: ImageVector
+    val iconResId: Int
 )
 
 val topLevelRoutes = listOf(
-    TopLevelRoute("Manuales", HomeSection, routeMap[HomeSection]!!, Icons.Default.Home),
-    TopLevelRoute("Dados", DiceSection, routeMap[DiceSection]!!, Icons.Default.Add),
-    TopLevelRoute("Personajes", CharacterTabSection, routeMap[CharacterTabSection]!!, Icons.Default.AccountBox)
+    TopLevelRoute("Manuales", HomeSection, routeMap[HomeSection]!!, R.drawable.manual_gray),
+    TopLevelRoute("Dados", DiceSection, routeMap[DiceSection]!!, R.drawable.dice_gray),
+    TopLevelRoute("Personajes", CharacterTabSection, routeMap[CharacterTabSection]!!, R.drawable.pj_gray),
+    TopLevelRoute("Salas", DiceChatSection, routeMap[DiceChatSection]!!, R.drawable.users_gray)
 )
 
 @SuppressLint("ViewModelConstructorInComposable")
@@ -84,6 +73,29 @@ fun menuNavigation(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
+    val manualRepository = FirebaseManualRepository()
+    val manualViewModel: ManualViewModel = viewModel(
+        factory = ManualViewModelFactory(manualRepository)
+    )
+
+    val universeRepository = FirebaseUniverseRepository()
+    val universeViewModel: UniverseViewModel = viewModel(
+        factory = UniverseViewModelFactory(universeRepository)
+    )
+
+    val globalCharacterRepository = FirebaseGlobalCharacterRepository()
+    val globalCharacterViewModel: GlobalCharacterViewModel = viewModel(
+        factory = GlobalCharacterViewModelFactory(globalCharacterRepository)
+    )
+
+    val diceRollViewModel = viewModel<DiceRollViewModel>(
+        factory = DiceRollViewModelFactory(FirebaseDiceRepository())
+    )
+
+    val characterViewModel = viewModel<CharacterViewModel>(
+        factory = CharacterViewModelFactory(FirebaseCharacterRepository())
+    )
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -91,12 +103,10 @@ fun menuNavigation(
         currentDestination?.hierarchy?.any { it.route == topRoute.routeString } == true
     }
 
+    val currentUser = auth.getCurrentUser()
     val userId = auth.getCurrentUser()?.uid ?: ""
+    val userName = currentUser?.displayName ?: currentUser?.email ?: "Usuario"
     val manualId = "default_manual_id"
-
-    val diceRollViewModel = viewModel<DiceRollViewModel>(
-        factory = DiceRollViewModelFactory(FirebaseDiceRollRepository())
-    )
 
     ModalDrawer(
         drawerState = drawerState,
@@ -116,17 +126,17 @@ fun menuNavigation(
             Scaffold(
                 topBar = {
                     CustomTopBar(
-                        text = currentRoute?.name ?: "",
+                        text = "Hola, $userName",
                         onClick = { coroutineScope.launch { drawerState.open() } }
                     )
                 },
                 bottomBar = {
                     BottomNavigation(backgroundColor = DarkBrown, elevation = 8.dp) {
-                        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+                        val currentDest = navController.currentBackStackEntryAsState().value?.destination
                         topLevelRoutes.forEach { topLevelRoute ->
                             CustomBottomNavigationItem(
                                 route = topLevelRoute,
-                                isSelected = currentDestination?.hierarchy?.any {
+                                isSelected = currentDest?.hierarchy?.any {
                                     it.route == topLevelRoute.routeString
                                 } == true,
                                 onClick = {
@@ -144,43 +154,37 @@ fun menuNavigation(
                 }
             ) { innerPadding ->
                 NavHost(
-                    navController,
+                    navController = navController,
                     startDestination = routeMap[HomeSection]!!,
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     composable(routeMap[HomeSection]!!) {
-                        val repository = FirebaseManualRepository()
-                        val manualViewModel = ManualViewModel(repository)
                         HomeView(
-                            viewModel = manualViewModel,
+                            manualViewModel = manualViewModel,
+                            characterHomeViewModel = globalCharacterViewModel,
+                            universeViewModel = universeViewModel,
                             onMoreInfoClick = { manual ->
-                                val gson = Gson()
-                                val manualJson = gson.toJson(manual)
-                                val encodedManualJson = java.net.URLEncoder.encode(manualJson, "UTF-8")
-                                navController.navigate("manualDetail/$encodedManualJson")
+                                manualViewModel.selectManual(manual)
+                                navController.navigate("manualDetail")
+                            },
+                            onMoreInfoUniverseClick = { universe ->
+                                universeViewModel.selectUniverse(universe)
+                                navController.navigate("universeDetail")
+                            },
+                            onMoreInfoCharacterClick = { character ->
+                                globalCharacterViewModel.selectCharacter(character)
+                                navController.navigate("globalCharacterSelection")
                             },
                             navController = navController
                         )
                     }
 
-                    composable(
-                        route = "manualDetail/{manualJson}",
-                        arguments = listOf(navArgument("manualJson") { type = NavType.StringType })
-                    ) { backStackEntry ->
-                        val json = backStackEntry.arguments?.getString("manualJson") ?: ""
-                        val decodedJson = java.net.URLDecoder.decode(json, "UTF-8")
-                        val manual = Gson().fromJson(decodedJson, Manual::class.java)
+                    composable("manualDetail") {
+                        ManualDetailDrawerView(viewModel = manualViewModel)
+                    }
 
-                        val cleanedPoster = manual.poster
-                            .replace("\\u003d", "=")
-                            .replace("\\u0026", "&")
-                        val cleanedManual = manual.copy(poster = cleanedPoster)
-
-                        val repository = FirebaseManualRepository()
-                        val manualViewModel = ManualViewModel(repository)
-                        manualViewModel.selectManual(cleanedManual)
-
-                        ManualDetailSection(viewModel = manualViewModel)
+                    composable("universeDetail") {
+                        UniverseDetailSection(viewModel = universeViewModel)
                     }
 
                     composable(routeMap[DiceSection]!!) {
@@ -192,7 +196,33 @@ fun menuNavigation(
                     }
 
                     composable(routeMap[CharacterTabSection]!!) {
-                        CharacterTabView()
+                        CharacterTabView(
+                            viewModel = characterViewModel,
+                            navController = navController,
+                            onNavigateToCreate = {
+                                navController.navigate("characterCreation")
+                            }
+                        )
+                    }
+
+                    composable("characterCreation") {
+                        CreateCharacterSection(
+                            navController = navController,
+                            viewModel = characterViewModel,
+                            onCharacterSaved = {
+                                navController.popBackStack()
+                            }
+                        )
+                    }
+
+                    composable("globalCharacterSelection") {
+                        GlobalCharacterDetailSection(
+                            viewModel = globalCharacterViewModel
+                        )
+                    }
+
+                    composable(routeMap[DiceChatSection]!!) {
+                        ChatView()
                     }
                 }
             }
