@@ -1,13 +1,12 @@
-package org.mireiavh.finalprojectt
+package org.mireiavh.finalprojectt.navigation
 
-import CreateCharacterSection
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import org.mireiavh.finalprojectt.AuthManager
 import org.mireiavh.finalprojectt.infrastructure.FirebaseCharacterRepository
-import org.mireiavh.finalprojectt.navigation.menuNavigation
 import org.mireiavh.finalprojectt.ui.InitialView
 import org.mireiavh.finalprojectt.ui.LoginView
 import org.mireiavh.finalprojectt.ui.SignUpView
